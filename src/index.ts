@@ -113,3 +113,38 @@ console.log(arr5);
 console.log(`${takaki.name}は`, arr5.includes(takaki) ? "いる" : "いない");
 const saito = { name: "斎藤さん" };
 console.log(`${saito.name}は`, arr5.includes(saito) ? "いる" : "いない");
+
+// 3.6 分割代入
+const nested = {
+    num: 123,
+    obj: {
+        foo: "hello",
+        bar: "world"
+    }
+};
+{
+    const {
+        num,
+        obj: { foo } //ネストの内側のプロパティを取得できる
+    } = nested;
+    console.log(num);
+    console.log(foo);
+}
+
+const arr6 = [1, 2, 4, 8, 16, 32];
+
+const [first, second, third, , fifth] = arr6;    // 空白でスキップ
+console.log(first);
+console.log(second);
+console.log(third);
+console.log(fifth);
+
+const tuple: [string, number] = ["uhyo", 26];
+const [myName, age] = tuple;
+
+type Obj = { foo?: number };
+const obj1: Obj = {};
+const obj2: Obj = { foo: -1234 };
+
+const { foo = 500 } = obj1; // 分割代入のデフォルト値
+const { foo: bar = 500 } = obj2;
