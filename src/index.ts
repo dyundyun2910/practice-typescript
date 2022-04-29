@@ -1,12 +1,13 @@
-import { createInterface } from "readline";
+let result: string = "";
 
-const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+for (let i = 1; i <= 100; i++) {
+    const delimiter = !!result ? " " : "";
 
-rl.question("文字列を入力してください:", (line) => {
-    const num = Number(line);    
-    console.log(num + 1000);
-    rl.close();
-})
+    const fizz = (i % 3 === 0) ? "Fizz" : "";
+    const buzz = (i % 5 === 0) ? "Buzz" : "";
+
+    const fizzbuzz = fizz + buzz || i;
+    result += delimiter + fizzbuzz;
+}
+
+console.log(result);
