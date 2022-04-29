@@ -148,3 +148,12 @@ const obj2: Obj = { foo: -1234 };
 
 const { foo = 500 } = obj1; // 分割代入のデフォルト値
 const { foo: bar = 500 } = obj2;
+
+// 3.7 その他のオブジェクト
+
+// Date
+let d = new Date();
+console.log(d);
+d = new Date("2020-02-03T15:00:00+09:00");
+console.log(d);
+console.log(d.toLocaleDateString());
