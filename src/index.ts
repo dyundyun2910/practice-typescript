@@ -237,4 +237,114 @@
             }
         }
     }
+
+    // 4.1.1 関数宣言
+    {
+        function range(min: number, max: number): number[] {
+            const result = [];
+            for (let i = min; i <= max; i++) {
+                result.push(i);
+            }
+            return result;
+        }
+
+        console.log(range(1, 10));
+    }
+
+    // 4.1.2 void関数
+    {
+        function helloWorldNTimes(n: number): void {
+            for (let i = 0; i < n; i++) {
+                console.log("Hello, world!");
+            }
+        }
+
+        helloWorldNTimes(5);
+    }
+
+    // 4.1.3 関数式
+    {
+        type Human = {
+            height_m: number;
+            weight_kg: number;
+        };
+        const calcBMI = function(human: Human): number {
+            return human.weight_kg / human.height_m ** 2;
+        };
+        const jun: Human = {height_m: 1.68, weight_kg: 68 };
+        console.log(calcBMI(jun));
+
+        // 引数の分割代入
+        const calcBMI2 = function({ height_m, weight_kg }: Human): number {
+            return weight_kg / height_m ** 2;
+        };
+    }
+
+    // 4.1.4 アロー関数式
+    {
+        type Human = {
+            height: number;
+            weight: number;
+        };
+        const calcBMI = ({ height, weight }: Human): number => {
+            return weight / height ** 2;
+        };
+
+        const jun: Human = {height: 1.68, weight: 68 };
+        console.log(calcBMI(jun));
+
+        // 4.1.5 アロー関数の省略記法
+        const calcBMI2 = ({ height, weight }: Human): number => weight / height ** 2;
+    }
+
+    // 4.1.6 メソッド記法
+    {
+        const obj = {
+            double(num: number): number {
+                return num * 2;
+            },
+            double2: (num: number): number => num * 2,
+        };
+    }
+
+    // 4.1.7 可変長引数
+    {
+        const num = (...args: number[]): number => {
+            let result = 0;
+            for (const num of args) {
+                result += num;
+            }
+            return result;
+        }
+    }
+
+    // 4.1.10 コールバック関数
+    {
+        type User = { name: string; age: number };
+        const users: User[] = [
+            { name: "uhyo", age: 26 },
+            { name: "John Smith", age: 15}
+        ];
+
+        // map
+        const names = users.map((u: User): string => u.name);
+        console.log(names);
+
+        // filter
+        const adultUsers = users.filter((user: User) => user.age >= 20);
+        console.log(adultUsers);
+
+        // every
+        const allAdult = users.every((user: User) => user.age >= 20);
+        console.log(allAdult);
+
+        // some
+        const seniorExits = users.some((user: User) => user.age >= 60);
+        console.log(seniorExits);
+
+        // find 
+        const john = users.find((user: User) => user.name === "John Smith");
+        console.log(john);
+    }
+
 }
