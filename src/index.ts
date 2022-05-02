@@ -347,4 +347,11 @@
         console.log(john);
     }
 
+    // 4.2 関数の型
+    {
+        const xRepeat = (num: number): string => "x".repeat(num);
+        
+        type F = (repeatNum: number) => string;
+        const xRepeat2: F = (num: number): string => "x".repeat(num);
+    }
 }
