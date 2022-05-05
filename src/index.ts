@@ -354,4 +354,61 @@
         type F = (repeatNum: number) => string;
         const xRepeat2: F = (num: number): string => "x".repeat(num);
     }
+
+    // 4.3.1 関数の部分型
+    {
+        type HasName = {
+            name: string;
+        }
+        // HasNameの部分型
+        type HasNameAndAge = {
+            name: string;
+            age: number;
+        }
+
+        // (age: number) => HasName 関数型の部分型
+        const fromAge = (age: number): HasNameAndAge => ({
+            name: "John Smith",
+            age,
+        });
+        const f: (age: number) => HasName = fromAge;
+
+        const obj: HasName = f(100);
+    }
+
+    // 4.3.2 引数の型による部分型関係
+    {
+        type HasName = {
+            name: string;
+        }
+        type HasNameAndAge = {
+            name: string;
+            age: number;
+        }
+
+        const showName = (obj: HasName) => {
+            console.log(obj.name);
+        };
+        const g: (obj: HasNameAndAge) => void = showName;
+
+        g({
+            name: "uhyo",
+            age: 26,
+        });
+
+        // 4.3.3. 引数の数による部分型関係
+        {
+            type UnaryFunc = (arg: number) => number;
+            type BinaryFunc = (left: number, right: number) => number;
+
+            const double: UnaryFunc = arg => arg * 2;
+            const add: BinaryFunc = (left, right) => left + right;
+
+            // UnaryFuncをBinaryFuncとして扱える
+            const bin: BinaryFunc = double;
+
+            console.log(bin(10. 100));
+        }
+
+    }
 }
