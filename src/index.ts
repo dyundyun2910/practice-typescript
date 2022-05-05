@@ -498,4 +498,60 @@ import { DebugLoggerFunction } from "util";
             return result;
         }
     }
+
+    // 4.5 変数とスコープ
+
+    // モジュールスコープ
+    // 関数スコープ
+    // ブロックスコープ
+
+    // 4.6 力試し
+
+    // 4.6.1
+    {
+        for (const i of sequence(1, 100)) {
+            const message = getFizzBuzzString(i);
+            console.log(message);
+        }
+
+        function sequence(from: number, to: number): number[] {
+            const result = [];
+            for (let i = from; i <= to; i++) {
+                result.push(i);
+            }
+            return result;
+        }
+        
+        function getFizzBuzzString(num: number): string {
+            if (num % 3 === 0 && num % 5 === 0) return "FizzBuzz";
+            if (num % 3 === 0) return "Fizz";
+            if (num % 5 === 0) return "Buzz";
+
+            return num.toString();
+        }
+    }
+
+    // 4.6.3 コールバック関数
+    {
+        function map(array: number[], callback: (value: number) => number): number[] {
+            const result: number[] = [];
+            for (const elm of array) {
+                result.push(callback(elm));
+            }
+            return result;
+        }
+
+        const data = [1, 1, 2, 3, 5, 8, 13];
+        const result = map(data, (x) => x * 10);
+        console.log(result);
+
+        function genericsMap<T>(array: T[], callback: (value: T) => T): T[] {
+            const result: T[] = [];
+            for (const elm of array) {
+                result.push(callback(elm));
+            }
+            return result;
+        }
+        console.log(genericsMap(data, (x) => x * 100));
+    }
 }
