@@ -1,3 +1,4 @@
+import { DebugLoggerFunction } from "util";
 
 // 2.6 FizzBuzz　基本的な文法・基本的な型
 {
@@ -395,20 +396,106 @@
             name: "uhyo",
             age: 26,
         });
+    }
 
-        // 4.3.3. 引数の数による部分型関係
-        {
-            type UnaryFunc = (arg: number) => number;
-            type BinaryFunc = (left: number, right: number) => number;
+    // 4.3.3. 引数の数による部分型関係
+    {
+        type UnaryFunc = (arg: number) => number;
+        type BinaryFunc = (left: number, right: number) => number;
 
-            const double: UnaryFunc = arg => arg * 2;
-            const add: BinaryFunc = (left, right) => left + right;
+        const double: UnaryFunc = arg => arg * 2;
+        const add: BinaryFunc = (left, right) => left + right;
 
-            // UnaryFuncをBinaryFuncとして扱える
-            const bin: BinaryFunc = double;
+        // UnaryFuncをBinaryFuncとして扱える
+        const bin: BinaryFunc = double;
 
-            console.log(bin(10. 100));
+        console.log(bin(10, 100));
+    }
+
+    // 4.4 ジェネリクス
+
+    // 4.4.1 関数の型引数
+    {
+        function repeat<T>(element: T, length: number): T[] {
+            const result: T[] = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
         }
 
+        console.log(repeat<string>("a", 5));
+        console.log(repeat<number>(123, 3));
+    }        
+
+    // 4.4.2 関数の型引数を宣言する方法
+    {
+        // function関数式
+        const repeat = function<T>(element: T, length: number): T[] {
+            const result: T[] = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
+        }
+
+        // アロー関数
+        const repeat2 = <T>(element: T, length: number): T[] => {
+            const result: T[] = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
+        }
+
+        // メソッド記法
+        const util = {
+            repeat<T>(element: T, length: number): T[] {
+                const result: T[] = [];
+                for (let i = 0; i < length; i++) {
+                    result.push(element);
+                }
+                return result;
+            }
+        }
+
+        // 型引数リストが複数の場合
+        const pair = <Left, Right>(left: Left, right: Right): [Left, Right] => [left, right];
+        const p = pair<string, number>("uhyo", 26);
+    }
+
+    // 4.4.3 関数の型引数は省略できる
+    {
+        function repeat<T>(element: T, length: number): T[] {
+            const result: T[] = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
+        }
+
+        // 引数の型から推論される
+        const result = repeat("a", 5);
+    }
+
+    // 4.4.4 型引数を持つ関数型
+    {
+        const repeat = function<T>(element: T, length: number): T[] {
+            const result: T[] = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
+        }
+
+        type Func = <T>(arg: T, num: number) => T[];
+
+        const repeat2: Func = (element, length) => {
+            const result = [];
+            for (let i = 0; i < length; i++) {
+                result.push(element);
+            }
+            return result;
+        }
     }
 }
